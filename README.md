@@ -48,6 +48,17 @@ Request packet from web server to backend:
 
 The packet format is specified in a file common to the backend and web server. With the use of json marshalling, this enables easy extension to the capabilities of a packet. Packets are of variable length, with end denoted by selected special character.
 
+# Testing
+Tested with:
+- 10,000,000 users
+- 1000 workers
+- 1000 requests per 0.2 seconds sent to rate limiter
+- Effective 1000 requests per second
+- 2048 maximum connections between backend server and database
+Ran for 5+ minutes
+  
+Varying from 100 to 1000 connections in the pool, p99 value for a round trip request remained between 8-9ms. This is an excellent latency level and exceeded the original goal of 200ms.
+
 # What I would do if there were more time
 - Implement the user-facing web page
 - Add image storage server with AWS S3 integration
