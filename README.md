@@ -57,10 +57,18 @@ Tested with:
 - 2048 maximum connections between backend server and database
 Ran for 5+ minutes
   
-Varying from 100 to 1000 connections in the pool, p99 value for a round trip request remained between 8-9ms. This is an excellent latency level and exceeded the original goal of 200ms.
+Without the cache layer, varying from 100 to 1000 connections in the pool at 1000 QPS, p99 value for a round trip request remained between 8-9ms. This is an excellent latency level and exceeded the original goal of 200ms.
+
+With Redis cache, testing from 1000 to 4000 QPS, round trip time p99 was reduced to under 4 ms.
+
+# Learning points
+One issue I encountered early on was that round trip requests were taking in excess of 10 seconds. I added latency tracking (prometheus) to each section of the flow, and identified that the DB was the primary cause of the latency. I confirmed that the issue was caused by improperly setting up the table, such that no primary key had been set.
+
+Another issue was that the backend server would stop responding after serving a specific number of requests. I investigated by first measuring this number, and looked in the code for matching values. I then tweaked those values to identify the variable that was correlated with this. It turned out that the matching variable was the number of connections in the DB pool. The cause of the error was that I did not close the DB rows after retrieving them, hence the DB connections remained waiting indefinitely, and the max number of connections was quickly reached.
 
 # What I would do if there were more time
 - Implement the user-facing web page
+- Password hashing  
 - Add image storage server with AWS S3 integration
 - Write unit tests
 - Implmenent token staling based on login time
