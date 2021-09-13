@@ -10,7 +10,8 @@ The goal of this project was for me to familiarize with the technologies used, i
 # Design
 The project consists of user-facing web server and backend server. The backend server has access to database and cache, and interacts with the web server through connection pooling.
 ## Specifications
-- Data size EstimationNumber of active users: 10,000,000
+Data size Estimation
+-  Number of active users: 10,000,000
 - Number of concurrent requests: 1000
 - Size per user:
   - Username: 30 characters
@@ -35,18 +36,18 @@ The project consists of user-facing web server and backend server. The backend s
 
 ## Packet format
 Request packet from web server to backend:
-{
-"Format":
-"User":{
-"Username":
-"Password":
-"Nickname":
-“Token”:
-“URL”:
-}
+{  
+"Format":  
+"User":{  
+&nbsp;  "Username":  
+&nbsp;  "Password":  
+&nbsp;  "Nickname":  
+&nbsp;  “Token”:  
+&nbsp;  “URL”:  
+&nbsp;  }  
 }
 
-The packet format is specified in a file common to the backend and web server. With the use of json marshalling, this enables easy extension to the capabilities of a packet. Packets are of variable length, with end denoted by selected special character.
+The packet format is specified in a file common to the backend and web server. Unused user fields are optional. With json marshalling, this enables easy extension to the capabilities of a packet. Packets are of variable length, with end denoted by selected special character.
 
 # Testing
 Tested with:
