@@ -1,5 +1,5 @@
 # Motivation
-The goal of this project was for me to familiarized the technologies used, including:
+The goal of this project was for me to familiarize with the technologies used, including:
 - Golang  
 - MySQL  
 - Redis  
@@ -8,7 +8,7 @@ The goal of this project was for me to familiarized the technologies used, inclu
 - Connection pooling
   
 # Design
-Consists of user-facing web server and backend server. The backend server has access to database and cache, and interacts with the web server through connection pooling.
+The project consists of user-facing web server and backend server. The backend server has access to database and cache, and interacts with the web server through connection pooling.
 ## Specifications
 - Data size EstimationNumber of active users: 10,000,000
 - Number of concurrent requests: 1000
